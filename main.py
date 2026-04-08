@@ -1,11 +1,11 @@
 import pygame
 import sys
 
-pygame.init()
+from constants import *
+from game import Game
+from tile import Tile
 
-SCREEN_WIDTH = 600
-SCREEN_HEIGHT = 600
-FPS = 60
+pygame.init()
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Memory Game")
@@ -17,7 +17,7 @@ while True:
             pygame.quit()
             sys.exit()
 
-    screen.fill((30, 30, 30))
+    screen.fill((BLACK))
 
-    pygame.display.flip()
+    pygame.display.update()
     clock.tick(FPS)
