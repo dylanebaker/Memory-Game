@@ -6,7 +6,7 @@ from tile import Tile
 class Game:
     def __init__(self):
         self.tiles = []
-        self.font = pygame.font.SysFont(None, FONT_SIZE)
+        self.font = pygame.font.Font(FONT_PATH, FONT_SIZE)
         self.pattern = []
         self.state = "idle"
         self.current_round = 1
@@ -21,6 +21,8 @@ class Game:
         self.quit_img  = pygame.image.load(QUIT_BTN_IMG).convert_alpha()
         self.click_sfx = pygame.mixer.Sound(BTN_CLICK_SFX)
         self.light_sfx = pygame.mixer.Sound(LIGHT_ON_SFX)
+        self.click_sfx.set_volume(CLICK_SFX_VOL)
+        self.light_sfx.set_volume(LIGHT_SFX_VOL)
         self.create_tiles()
         self.create_button()
     
@@ -41,8 +43,16 @@ class Game:
         self.show_index = 0
         self.plyr_progress = 0
         self.reset_tiles()
+        pygame.mixer.music.load(BACKGROUND_SFX)
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.02)
         self.state = "showing"
         self.flash_current()
+
+    def end_game(self):
+        pygame.mixer.music.stop()
+        self.reset_tiles()
+        self.state = "idle"
 
     def update(self):
         if self.state == "showing":
@@ -69,15 +79,14 @@ class Game:
                     if self.plyr_progress >= self.current_round:
                         self.current_round += 1
                         if self.current_round > 50:
-                            self.state = "idle"
+                            self.end_game()
                         else:
                             self.delay_timer = pygame.time.get_ticks()
                             self.state = "delay"
                     else:
                         self.state = "waiting"
                 else:
-                    self.reset_tiles()
-                    self.state = "idle"
+                    self.end_game()
 
         elif self.state == "delay":
             elapsed = pygame.time.get_ticks() - self.delay_timer
@@ -123,7 +132,11 @@ class Game:
     def draw(self, screen):
         for tile in self.tiles:
             tile.draw(screen)
-        screen.blit(self.start_img, self.button_rect)
+        if self.state == "idle":
+            screen.blit(self.start_img, self.button_rect)
+        else:
+            label = self.font.render(f"Round: {self.current_round}", True, WHITE)
+            screen.blit(label, label.get_rect(center=self.button_rect.center))
         screen.blit(self.quit_img, self.quit_rect)
 
     def handle_click(self, mouse_pos):

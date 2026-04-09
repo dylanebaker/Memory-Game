@@ -24,12 +24,16 @@ TILE_SIZE = 100
 TILE_PADDING = 20
 TILE_LIGHT_GAP = 10 
 
-FONT_SIZE = 28
+FONT_SIZE = 24
 
-START_BTN_IMG = "ASSETS/startBTN.png"
-QUIT_BTN_IMG  = "ASSETS/quitBTN.png"
-BTN_CLICK_SFX = "ASSETS/buttonClick.wav"
-LIGHT_ON_SFX  = "ASSETS/lightON.wav"
+START_BTN_IMG  = "ASSETS/startBTN.png"
+QUIT_BTN_IMG   = "ASSETS/quitBTN.png"
+BTN_CLICK_SFX  = "ASSETS/buttonClick.wav"
+CLICK_SFX_VOL  = 0.2
+LIGHT_ON_SFX   = "ASSETS/lightON.wav"
+LIGHT_SFX_VOL  = 0.2
+BACKGROUND_SFX = "ASSETS/backgroundSFX.ogg"
+FONT_PATH = "ASSETS/QuinqueFiveFont.ttf"
 
 TILE_OFF_IMG = "ASSETS/lightOFF.png"
 TILE_ON_IMGS = [
