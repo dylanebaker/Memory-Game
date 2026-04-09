@@ -23,7 +23,7 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             game.handle_click(event.pos)
 
-    screen.fill((BLACK))
+    screen.fill((GRAY))
     game.update()
     game.draw(screen)
 
